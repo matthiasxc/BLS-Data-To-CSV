@@ -850,15 +850,15 @@ namespace ParsingBLSData.ViewModel
                     do
                     {
                         string raw = reader.ReadLine();
-                        string[] values = raw.Split(new string[]{","}, StringSplitOptions.RemoveEmptyEntries);
+                        string[] values = raw.Split(new string[]{"  "}, StringSplitOptions.RemoveEmptyEntries);
                         metroBackWorker.ReportProgress(10, "Reading...");
                         if (values.Length == 10 && values[0].StartsWith("MT"))
                         {
-                            MetroDataPoint thisDataPoint = new MetroDataPoint(values[0], values[1],
-                                                                            values[2], values[3],
-                                                                            values[4], values[5],
-                                                                            values[6], values[7],
-                                                                            values[8], values[9]);
+                            MetroDataPoint thisDataPoint = new MetroDataPoint(values[0].Trim(), values[1].Trim(),
+                                                                            values[2].Trim(), values[3].Trim(),
+                                                                            values[4].Trim(), values[5].Trim(),
+                                                                            values[6].Trim(), values[7].Trim(),
+                                                                            values[8].Trim(), values[9].Trim());
                             listOfData.Add(thisDataPoint);
                             
                             if (!listofDates.Contains(thisDataPoint.DateOfData))
