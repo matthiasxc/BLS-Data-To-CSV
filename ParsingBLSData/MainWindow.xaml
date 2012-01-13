@@ -1,0 +1,307 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+        x:Class="ParsingBLSData.MainWindow"
+        Title="BLS-To-Excel Converter"
+
+        Height="800"
+        Width="800" Icon="Icons/BLS_Logo_32.ico"
+        >
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+			<Style
+			    x:Key="LinkButon"
+			    TargetType="Button">
+			    <Setter
+			        Property="Template">
+			        <Setter.Value>
+			            <ControlTemplate
+			                TargetType="Button">
+			                <TextBlock
+			                    TextDecorations="Underline">
+			                <ContentPresenter /></TextBlock>
+			            </ControlTemplate>
+			        </Setter.Value>
+			    </Setter>
+			    <Setter
+			        Property="Foreground"
+			        Value="Blue" />
+			    <Style.Triggers>
+			        <Trigger
+			            Property="IsMouseOver"
+			            Value="true">
+			            <Setter
+			                Property="Foreground"
+			                Value="Red" />
+			        </Trigger>
+			    </Style.Triggers>
+			</Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+	<Window.DataContext>
+		<Binding Path="Main" Source="{StaticResource Locator}"/>
+	</Window.DataContext>
+
+    <Grid x:Name="LayoutRoot">
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="0.363*"/>
+    		<ColumnDefinition Width="0.637*"/>
+    	</Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Margin="12,0,0,0">
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="Auto" MinHeight="35.64"/>
+        		<RowDefinition/>
+        	</Grid.RowDefinitions>
+        	<TextBlock Margin="0" TextWrapping="Wrap" Text="How To Get Data" FontSize="24" d:LayoutOverrides="Height"/>
+
+        	<Grid Background="White" Grid.Row="1">
+        		<TabControl HorizontalAlignment="Left" Margin="0">
+        			<TabItem Header="A Tables">
+        				<Grid Background="White">
+        					<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        				<StackPanel Background="White" MaxWidth="475">
+        					<TextBlock TextWrapping="Wrap" Text="Go to this link" Margin="12,6"/>
+        					<Button Content="http://bls.gov/webapps/legacy/cpsatab1.htm" HorizontalAlignment="Left" Padding="12,6" Style="{DynamicResource LinkButon}" Margin="12,0,0,0" Click="GoToATablesPage"/>
+        					<TextBlock TextWrapping="Wrap" Text="Check all the boxes for &quot;Seasonally Adjusted&quot; (and the &quot;not seasonally adjusted&quot; box for population" Margin="12,6"/>
+        					<Image Source="Images/ATable_Image1.png" Width="400" Margin="12,0,12,12" HorizontalAlignment="Left"/>
+        					<TextBlock TextWrapping="Wrap" Text="Press the &quot;Retrieve data&quot; button at the bottom of that page" Margin="12,6"/>
+        					<TextBlock TextWrapping="Wrap" Text="Go to &quot;More Formatting Options&quot;" Margin="12,6"/>
+        					<Image Source="Images/MoreFormatting_Image.png" Width="400" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Select &quot;All years&quot;, &quot;Column Format&quot; and &quot;Text&quot; with the &quot;comma delimited&quot; option. Then click the &quot;Retrieve Data button."/><LineBreak/><Run/></TextBlock>
+        					<Image Source="Images/FormattingDetails.png" Width="400"/>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Select everything (CTRL-A) and copy it (CTRL-C). Do not copy the source code. "/><LineBreak/><Run/></TextBlock>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Paste it (CTRL-V) into a text file. Save that text file."/><LineBreak/><Run/></TextBlock>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Select that text file as your input."/><LineBreak/><Run/></TextBlock>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="This should cause the conversion to auto-detect &quot;A Table Conversion&quot;"/><LineBreak/><Run/></TextBlock>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Create an output file."/><LineBreak/><Run/></TextBlock>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Click &quot;Run Conversion&quot;"/><LineBreak/><Run/></TextBlock>
+        					<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="You should now have your A tables converted to Excel format"/><LineBreak/><Run/></TextBlock>
+							
+        				</StackPanel>
+        			</ScrollViewer>
+        					</Grid>
+        			</TabItem>
+        			<TabItem Header="B Tables ">
+        					<Grid Background="White" d:LayoutOverrides="Width">
+        						<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        							<StackPanel Background="White" MaxWidth="475">
+        								<TextBlock TextWrapping="Wrap" Text="Go to this link" Margin="12,6"/>
+        								<Button Content="http://bls.gov/webapps/legacy/cesbtab1.htm" 
+												HorizontalAlignment="Left" 
+												Padding="12,6" 
+												Style="{DynamicResource LinkButon}" 
+												Margin="12,0,0,0" Click="GoToBTables"/>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select all the industries you want. I selected all of them, but that's a little tedious."/></TextBlock>
+        								<Image Source="Images/BTables_Image2.png" Width="282" Margin="12,0,12,12" HorizontalAlignment="Left"/>
+        								<TextBlock TextWrapping="Wrap" Text="Press the &quot;Retrieve data&quot; button at the bottom of that page" Margin="12,6"/>
+        								<TextBlock TextWrapping="Wrap" Text="Go to &quot;More Formatting Options&quot;" Margin="12,6"/>
+        								<Image Source="Images/MoreFormatting_Image.png" Width="400" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        								<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Select &quot;All years&quot;, &quot;Column Format&quot; and &quot;Text&quot; with the &quot;comma delimited&quot; option. Then click the &quot;Retrieve Data button."/></TextBlock>
+        								<Image Source="Images/FormattingDetails.png" Width="400" HorizontalAlignment="Left"/>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select everything (CTRL-A) and copy it (CTRL-C). Do not copy the source code. "/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Paste it (CTRL-V) into a text file. Save that text file."/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select that text file as your input."/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6" Text="This should cause the conversion to auto-detect &quot;B Table Conversion&quot;"/>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Create an output file."/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Click &quot;Run Conversion&quot;"/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="You should now have your B tables converted to Excel format"/></TextBlock>
+							
+        							</StackPanel>
+        						</ScrollViewer>
+        					</Grid>
+        			</TabItem>
+					<TabItem Header="State Employment">
+        					<Grid Background="White" d:LayoutOverrides="Width">
+        						<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        							<StackPanel Background="White" MaxWidth="475">
+        								<TextBlock TextWrapping="Wrap" Text="Go to this link" Margin="12,6"/>
+        								<Button Content="http://data.bls.gov/cgi-bin/dsrv?la" 
+        									HorizontalAlignment="Left" 
+        									Padding="12,6" 
+        									Style="{DynamicResource LinkButon}" 
+        									Margin="12,0,0,0" Click="GoToStateEmployment"/>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Select everything (or a subselection if you prefer) and click &quot;Next form&quot;"/>
+        								<Image Source="Images/StateEmployment_Image1.png" Width="200" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+										<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Now, select &quot;Statewide&quot; and click &quot;Next form&quot;"/>
+        								<Image Source="Images/StateEmployment_Image2.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+										<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select everything and click &quot;Next form&quot;"/></TextBlock>
+        								<Image Source="Images/StateEmployment_Image3.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+										<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select everything again and click &quot;next form&quot; (are we having fun yet?!)"/></TextBlock>
+        								<Image Source="Images/StateEmployment_Image4.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+										<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Select &quot;Not Seasonally Adjusted&quot; and click &quot;Next Form&quot;"/>
+        								<Image Source="Images/StateEmployment_Image5.png" Width="200" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+										<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Click &quot;Retrieve data"/>
+        								<Image Source="Images/StateEmployment_Image6.png" Width="200" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        								<TextBlock TextWrapping="Wrap" Text="Go to &quot;More Formatting Options&quot;" Margin="12,6"/>
+        								<Image Source="Images/MoreFormatting_Image.png" Width="400" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        								<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Select &quot;All years&quot;, &quot;Column Format&quot; and &quot;Text&quot; with the &quot;comma delimited&quot; option. Then click the &quot;Retrieve Data button."/></TextBlock>
+										
+        								<Image Source="Images/FormattingDetails.png" Width="400" HorizontalAlignment="Left"/>
+										<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Be patient. It's loading about 2.5 MB of text."/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="When it's done, select everything (CTRL-A) and copy it (CTRL-C). You may see a delay because this is a lot of data "/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Paste it (CTRL-V) into a text file. Save that text file."/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select that text file as your input."/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6" Text="This should cause the conversion to auto-detect &quot;B Table Conversion&quot;"/>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Create an output file."/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Click &quot;Run Conversion&quot;"/></TextBlock>
+        								<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="You should now have your B tables converted to Excel format"/></TextBlock>
+							
+        							</StackPanel>
+        						</ScrollViewer>
+        					</Grid>
+        			</TabItem>
+					<TabItem Header="State By Industry">
+        				<Grid Background="White">
+        					<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,8,0,-8">
+        						<StackPanel Background="White" MaxWidth="475">
+        							<TextBlock TextWrapping="Wrap" Text="Go to this link" Margin="12,6"/>
+        							<Button Content="http://data.bls.gov/cgi-bin/dsrv?sm" 
+        								HorizontalAlignment="Left" 
+        								Padding="12,6" 
+        								Style="{DynamicResource LinkButon}" 
+        								Margin="12,0,0,0" Click="GoToStateIndustryTables"/>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select &quot;Seasonally Adjusted&quot; and click &quot;Next Form&quot;"/></TextBlock>
+        							<Image Source="Images/StateIndustry_Image1.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+									<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select &quot;01 All Employees, In Thousands&quot; and click &quot;Next form&quot;"/></TextBlock>
+        							<Image Source="Images/StateIndustry_Image2.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							
+									<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Select everything and click &quot;Next Form&quot;"/>
+        							<Image Source="Images/StateIndustry_Image3.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							
+									<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Select &quot;00000 Statewide&quot; and click &quot;Next form&quot;"/>
+        							<Image Source="Images/StateIndustry_Image4.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							
+									<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Select ALL THE THINGS and click &quot;Next Form&quot;"/>
+        							<Image Source="Images/StateIndustry_Image5.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							
+									<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Once again, select everything and click &quot;Next Form&quot;"/>
+        							<Image Source="Images/StateIndustry_Image6.png" Width="250" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							
+									<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Click &quot;Retrieve data&quot;"/>
+        							<Image Source="Images/StateIndustry_Image7.png" Width="225" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							<TextBlock TextWrapping="Wrap" Text="Go to &quot;More Formatting Options&quot;" Margin="12,6"/>
+        							<Image Source="Images/MoreFormatting_Image.png" Width="400" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							<TextBlock TextWrapping="Wrap" Margin="12"><Run Text="Select &quot;All years&quot;, &quot;Column Format&quot; and &quot;Text&quot; with the &quot;comma delimited&quot; option. Then click the &quot;Retrieve Data button."/></TextBlock>
+        							<Image Source="Images/FormattingDetails.png" Width="400" HorizontalAlignment="Left"/>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="This is going to take a while because you're currently grabbing about 12 MB of data. "/></TextBlock>
+									<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select everything (CTRL-A) and copy it (CTRL-C). This also could take a while. Be patient. "/></TextBlock>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Paste it (CTRL-V) into a text file. Save that text file."/></TextBlock>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select that text file as your input."/></TextBlock>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6" Text="This should cause the conversion to auto-detect &quot;State Industry Conversion&quot;"/>
+									<Image Source="Images/StateIndustry_Image8.png" Width="225" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6" Text="The biggest trick here is that there are two ways to run this conversion. The first one (the button &quot;Run Conversion&quot;) will put all this data into a single file. That can be a mess to deal with. "/>
+									<TextBlock TextWrapping="Wrap" Margin="12,6" Text="So if you run &quot;State Industry Conversion&quot;, it will separate out the files by industry so we can look the state-by-state data with a little more convenience. "/>
+        							
+									<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Create an output file. If you plan to run the &quot;State Industry Conversion&quot; option, the name you provide will be a prefix to all your files (followed by the industry name)."/></TextBlock>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="For example, if you named your output file &quot;StateOutput_&quot;, one of your files will be named &quot;StateOutput_Durable Goods.csv&quot;"/></TextBlock>
+									<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Click whichever button you want."/></TextBlock>
+									<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="You should now have your State Industry data converted to Excel format"/></TextBlock>
+							
+        						</StackPanel>
+        					</ScrollViewer></Grid>
+        			</TabItem>
+					<TabItem Header="Metro Employment">
+        				<Grid Background="White">
+        					<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        						<StackPanel Background="White" MaxWidth="475">
+        							<TextBlock TextWrapping="Wrap" Text="Go to this link" Margin="12,6"/>
+        							<Button Content="http://www.bls.gov/lau/metrossa.htm" 
+        								HorizontalAlignment="Left" 
+        								Padding="12,6" 
+        								Style="{DynamicResource LinkButon}" 
+        								Margin="12,0,0,0" Click="GoToSmoothMetro" />
+        							<TextBlock TextWrapping="Wrap" Margin="12,6" Text="Download the TXT file"/>
+        							<Image Source="Images/Metro_Image1.png" Width="400" HorizontalAlignment="Left" Margin="24,0,0,0"/>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Select that text file as your input."/></TextBlock>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6" Text="This should cause the conversion to auto-detect &quot;Metro Employment/Unemployment Conversion&quot;&quot;"/>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Create an output file."/></TextBlock>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6"><Run Text="Click &quot;Run Conversion&quot;"/></TextBlock>
+        							<TextBlock TextWrapping="Wrap" Margin="12,6" Text="You should now have your Metro tables converted to Excel format (it will be in 4 separate csv files)."/>
+							
+        						</StackPanel>
+        					</ScrollViewer></Grid>
+        			</TabItem>
+        		</TabControl>
+        		
+        	</Grid>
+
+        </Grid>
+        <Grid Background="White" Margin="0,0,8,0">
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="Auto"/>
+        		<RowDefinition Height="*"/>
+        	</Grid.RowDefinitions>
+        	<TextBlock Margin="0" TextWrapping="Wrap" Text="Select Files and Convert" d:LayoutOverrides="Height" FontSize="24"/>
+        	<ScrollViewer Margin="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.RowSpan="2" Grid.Row="1">
+        		<StackPanel Margin="12,0,0,0">
+        			<Button Content="Set Input File" HorizontalAlignment="Left" Margin="0,8">
+        				<i:Interaction.Triggers>
+        					<i:EventTrigger EventName="Click">
+        						<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding SelectInputFile, Mode=OneWay}"/>
+        					</i:EventTrigger>
+        				</i:Interaction.Triggers>
+        			</Button>
+        			<TextBlock TextWrapping="Wrap" Text="{Binding InputFileName}" HorizontalAlignment="Left" Margin="0,8"/>
+        			<Button Content="Set Output File" HorizontalAlignment="Left" Margin="0,8">
+        				<i:Interaction.Triggers>
+        					<i:EventTrigger EventName="Click">
+        						<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding SelectOutputFile, Mode=OneWay}"/>
+        					</i:EventTrigger>
+        				</i:Interaction.Triggers>
+        			</Button>
+        			<TextBlock TextWrapping="Wrap" Text="{Binding OutputFileName}" HorizontalAlignment="Left" Margin="0,8"/>
+        			<TextBlock TextWrapping="Wrap" Text="Type of Conversion:"/>
+        			<TextBlock TextWrapping="Wrap" Text="{Binding DisplayDataType}" FontSize="24"/>
+        			<StackPanel Orientation="Vertical" Visibility="{Binding IsBulkButtonVisible}">
+        				<Button Content="Run Conversion" d:LayoutOverrides="Width" HorizontalAlignment="Left" Margin="0,6">
+        					<i:Interaction.Triggers>
+        						<i:EventTrigger EventName="Click">
+        							<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding RemakeBLSData, Mode=OneWay}"/>
+        						</i:EventTrigger>
+        					</i:Interaction.Triggers>
+        				</Button>
+        				<TextBlock TextWrapping="Wrap" Text="{Binding BLSStatus}" HorizontalAlignment="Left" Margin="0,6"/>
+        			</StackPanel>
+        			<StackPanel Margin="0,6" d:LayoutOverrides="Width"
+        				Visibility="{Binding IsStateIndustryVisible}"
+									>
+        				<Button Content="Run State Industry Conversion" Margin="0,6" HorizontalAlignment="Left">
+        					<i:Interaction.Triggers>
+        						<i:EventTrigger EventName="Click">
+        							<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding SortBLSStateIndustry, Mode=OneWay}"/>
+        						</i:EventTrigger>
+        					</i:Interaction.Triggers>
+        				</Button>
+        				<TextBlock TextWrapping="Wrap" Text="{Binding BLSStateIndustryStatus}" Margin="0,6"/>
+        			</StackPanel>
+        			<StackPanel Orientation="Vertical" Visibility="{Binding IsMetroEmployVisible}">
+        				<Button Content="Run Metro Employment Conversion" Margin="0,6" d:LayoutOverrides="Width" HorizontalAlignment="Left">
+        					<i:Interaction.Triggers>
+        						<i:EventTrigger EventName="Click">
+        							<GalaSoft_MvvmLight_Command:EventToCommand Command="{Binding ParseMetroEmployment, Mode=OneWay}"/>
+        						</i:EventTrigger>
+        					</i:Interaction.Triggers>
+        				</Button>
+        				<TextBlock TextWrapping="Wrap" Text="{Binding MetroAsyncStatus}" d:LayoutOverrides="Width" Margin="0,6"/>
+        			</StackPanel>
+        		</StackPanel>
+        	</ScrollViewer>
+        </Grid>
+        <GridSplitter Margin="0" Width="6">
+        	<GridSplitter.Background>
+        		<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+        			<GradientStop Color="#FFC9C9C9"/>
+        			<GradientStop Color="#FFE3E3E3" Offset="0.997"/>
+        		</LinearGradientBrush>
+        	</GridSplitter.Background>
+        </GridSplitter>
+
+    </Grid>
+</Window>
